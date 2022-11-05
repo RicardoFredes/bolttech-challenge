@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6"],
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "jsx": "react",
+    "lib": ["es5", "es6", "dom"],
     "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "outDir": "./build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "strict": false,
     "sourceMap": true
-  }
+  },
+  "include": ["vite.config.ts"]
 }
