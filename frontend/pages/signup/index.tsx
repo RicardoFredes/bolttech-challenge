@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -12,32 +12,22 @@ import {
   Text,
   Title,
 } from "../../components";
-import { ToastContext } from "../../contexts/toast.context";
+import { useToast } from "../../hooks/toast.hook";
 import { registerUser, RegisterUserDTO } from "../../requests/user.request";
 
 export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { openToast } = useContext(ToastContext);
+  const toast = useToast();
   const navigate = useNavigate();
 
   const handleSubmit: OnSubmitValue<RegisterUserDTO> = async (values) => {
     setIsLoading(true);
     try {
       await registerUser(values);
-      openToast({
-        title: "Successful registration",
-        type: "success",
-        description: "Redirecting to dashboard",
-        isClosable: true,
-      });
+      toast.success("Successful registration", "Redirecting to dashboard");
       navigate("/");
     } catch (error) {
-      openToast({
-        title: "Error creating account",
-        type: "error",
-        description: error,
-        isClosable: true,
-      });
+      toast.error("Error creating account", error);
     }
     setIsLoading(false);
   };

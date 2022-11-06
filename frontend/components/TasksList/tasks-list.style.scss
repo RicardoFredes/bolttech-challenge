@@ -1,0 +1,27 @@
+.tasks-list {
+  display: grid;
+  gap: 0.8rem;
+  &__empty {
+    padding-left: 1rem;
+  }
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.25rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: color ease 250ms;
+  &:hover {
+    color: var(--color-accent-500);
+  }
+  &--done {
+    color: var(--color-text-secondary);
+    .task-item__description {
+      text-decoration: line-through;
+    }
+  }
+}

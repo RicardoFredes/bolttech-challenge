@@ -7,7 +7,7 @@
   padding: 0.8rem 2rem;
   font-size: 1rem;
   transition: background-color 250ms;
-  text-transform: uppercase;
+  letter-spacing: 0.05rem;
   &:not(:disabled) {
     cursor: pointer;
     &:hover {
@@ -16,7 +16,7 @@
   }
   &:focus {
     outline-offset: 0.2rem;
-    outline: 1px solid var(--color-warning-500);
+    outline: 2px solid var(--color-warning-500);
   }
   &:disabled {
     background-color: var(--color-neutral-100);

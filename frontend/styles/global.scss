@@ -1,5 +1,10 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: var(--color-background-primary);
   color: var(--color-text-primary);
+}
+
+*:focus {
+  outline-offset: 0.2rem;
+  outline: 2px solid var(--color-warning-500);
 }

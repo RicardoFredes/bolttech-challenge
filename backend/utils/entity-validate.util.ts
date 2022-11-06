@@ -4,6 +4,8 @@ export const entityValidate = async (object: object, validatorOptions?: Validato
   const errors = await validate(object, validatorOptions);
   if (errors.length === 0) return;
   return errors
-    .map(({ property, constraints }) => `${property}: ${Object.values(constraints).join("; ")}.`)
+    .map(
+      ({ property, constraints }: any) => `${property}: ${Object.values(constraints).join("; ")}.`
+    )
     .join(" ");
 };

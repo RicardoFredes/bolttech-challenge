@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -12,29 +12,23 @@ import {
   Text,
   Title,
 } from "../../components";
-import { ToastContext } from "../../contexts/toast.context";
+import { useToast } from "../../hooks/toast.hook";
 import { login, LoginDTO } from "../../requests/user.request";
 
 export const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { openToast } = useContext(ToastContext);
+  const toast = useToast();
   const navigate = useNavigate();
 
   const handleSubmit: OnSubmitValue<LoginDTO> = async ({ email, password }) => {
     setIsLoading(true);
 
     try {
-      const result = await login({ email, password });
-      console.log(result);
-      openToast({
-        title: "Login successfully",
-        type: "success",
-        description: "Redirecting to dashboard",
-        isClosable: true,
-      });
+      await login({ email, password });
+      toast.success("Login successfully", "Redirecting to dashboard");
       navigate("/");
     } catch (error) {
-      openToast({ title: "Login error", type: "error", description: error, isClosable: true });
+      toast.error("Login error", error);
     }
     setIsLoading(false);
   };

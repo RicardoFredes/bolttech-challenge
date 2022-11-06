@@ -1,11 +1,11 @@
-import { IsDate, Length } from "class-validator";
+import { Length } from "class-validator";
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
   JoinColumn,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Project } from "./project.entity";
 import { User } from "./user.entity";
@@ -21,10 +21,6 @@ export class Task {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @Column()
-  @IsDate()
-  endsAt: Date;
 
   @Column({ default: false })
   done: boolean;

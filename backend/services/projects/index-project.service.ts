@@ -7,5 +7,8 @@ interface IndexProjects {
 
 export const indexProjects = async ({ userId }: Partial<IndexProjects>) => {
   if (!userId) return new Error("userId is required");
-  return AppDataSource.getRepository(Project).findBy({ userId });
+  return AppDataSource.getRepository(Project).find({
+    where: { userId },
+    relations: { tasks: true },
+  });
 };

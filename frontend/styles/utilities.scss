@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+
 .my-1 {
   margin-top: 1rem;
   margin-bottom: 1rem;

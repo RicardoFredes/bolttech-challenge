@@ -1,12 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Container, CreateProject, ProjectsList, Section, Title } from "../../components";
 
 export const Home = () => {
   return (
     <main>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Sign-up</Link>
+      <Section>
+        <Container>
+          <Title size="sm">TODO List</Title>
+          <CreateProject />
+          <ProjectsList />
+        </Container>
+      </Section>
     </main>
   );
 };
