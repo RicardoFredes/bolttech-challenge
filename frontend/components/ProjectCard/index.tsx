@@ -19,7 +19,7 @@ export const ProjectCard = ({ title, projectId, tasks = [] }: ProjectCardProps) 
           Start by adding some task
         </Text>
       ) : (
-        <TasksList tasks={tasks} />
+        <TasksList tasks={tasks} projectId={projectId} />
       )}
       <br />
       <br />

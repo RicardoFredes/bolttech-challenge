@@ -19,6 +19,7 @@ export const createTask = async ({ description, projectId, userId }: CreateTask)
     id: task.id,
     projectId: task.projectId,
     createTask: task.createdAt,
+    description: task.description,
     done: task.done,
   };
 };

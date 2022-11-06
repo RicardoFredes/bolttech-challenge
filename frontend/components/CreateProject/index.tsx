@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, Form, Input, Title } from "..";
-import { useToast } from "../../hooks/toast.hook";
-import { createProject } from "../../requests/projects.request";
+import { useProjects } from "../../hooks/projects.hook";
 
 export const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
+  const { addProject } = useProjects();
   const handleSubmit = async ({ title }) => {
     setIsLoading(true);
-    try {
-      await createProject({ title });
-      toast.success("New project created successfully");
-    } catch (error) {
-      toast.error("Error creating project", error);
-    }
+    await addProject({ title });
     setIsLoading(false);
   };
   return (

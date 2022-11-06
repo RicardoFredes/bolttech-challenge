@@ -5,6 +5,12 @@ export interface CreateTaskDTO {
   projectId: string;
 }
 
+export interface DoneTaskDTO {
+  id: string;
+  projectId: string;
+  done: boolean;
+}
+
 export interface CreateTaskResponse extends CreateTaskDTO {
   done: boolean;
   createdAt: string;
@@ -21,4 +27,17 @@ export const createTask = async ({ description, projectId }: CreateTaskDTO) => {
   } catch (error) {
     return Promise.reject(error.response.data.message);
   }
+};
+
+export const doneTask = async ({ id, done }: DoneTaskDTO) => {
+  try {
+    await newModel("/tasks").put(id, { done });
+  } catch (error) {
+    return Promise.reject(error.response.data.message);
+  }
+};
+
+export const TasksRequest = {
+  add: createTask,
+  done: doneTask,
 };

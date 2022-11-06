@@ -29,7 +29,7 @@ export class Task {
   @JoinColumn()
   project: Project;
 
-  @Column({ select: false })
+  @Column()
   projectId: string;
 
   @ManyToOne(() => User, (user) => user.tasks)

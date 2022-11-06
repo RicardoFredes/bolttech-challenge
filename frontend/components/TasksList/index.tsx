@@ -1,13 +1,15 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { Icon, Text, Title } from "..";
 import { Task } from "../../contexts/projects.contexts";
+import { useProjects } from "../../hooks/projects.hook";
 
 interface TasksList {
   tasks: Task[];
+  projectId: string;
 }
 
-export const TasksList = ({ tasks }) => {
+export const TasksList = ({ tasks, projectId }) => {
   const completedTasks = tasks.filter(({ done }) => done);
   const uncompletedTasks = tasks.filter(({ done }) => !done);
   return (
@@ -22,7 +24,7 @@ export const TasksList = ({ tasks }) => {
       )}
       <Title size="sm">Done</Title>
       {completedTasks.length > 0 ? (
-        completedTasks.map((task) => <TaskItem key={task.id} {...task} />)
+        completedTasks.map((task) => <TaskItem key={task.id} {...task} projectId={projectId} />)
       ) : (
         <Text className="tasks-list__empty" variant="secondary" size="sm">
           No task completed {":("}
@@ -32,13 +34,25 @@ export const TasksList = ({ tasks }) => {
   );
 };
 
-interface TaskItemProps extends Task {}
+interface TaskItemProps extends Task {
+  projectId: string;
+}
 
-const TaskItem = ({ done, id, description }: TaskItemProps) => {
-  const icon = done ? "fa-check-square" : "fa-square";
+const TaskItem = ({ done, id, description, projectId }: TaskItemProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toggleTaskDone } = useProjects();
+
+  const handleClick = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    await toggleTaskDone({ id, projectId, done });
+    setIsLoading(false);
+  };
+
+  const icon = isLoading ? "fa-circle-notch fa-spin" : done ? "fa-check-square" : "fa-square";
   const cn = classNames("task-item", { "task-item--done": done });
   return (
-    <div className={cn} tabIndex={0} title={done ? "uncheck" : "check"}>
+    <div className={cn} tabIndex={0} onClick={handleClick} title={done ? "uncheck" : "check"}>
       <Icon icon={icon} />
       <Text className="task-item__description">{description}</Text>
     </div>
