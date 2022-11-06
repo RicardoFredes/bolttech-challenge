@@ -14,5 +14,6 @@
     "strict": false,
     "sourceMap": true
   },
+  "types": ["./frontend/vite-env.d.ts"],
   "include": ["vite.config.ts"]
 }

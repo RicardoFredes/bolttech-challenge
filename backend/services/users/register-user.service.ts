@@ -12,11 +12,12 @@ interface RegisterUser {
 }
 
 export const registerUser = async ({
-  name,
+  name: originalName,
   email,
   password,
   passwordConfirmation,
 }: Partial<RegisterUser>) => {
+  const name = originalName?.trim();
   const user = AppDataSource.getRepository(User).create({
     email,
     name,

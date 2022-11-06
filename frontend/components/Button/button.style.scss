@@ -1,0 +1,25 @@
+.btn {
+  border: none;
+  outline: none;
+  background-color: var(--color-accent-500);
+  color: var(--color-text-primary);
+  border-radius: 0.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  transition: background-color 250ms;
+  text-transform: uppercase;
+  &:not(:disabled) {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--color-accent-700);
+    }
+  }
+  &:focus {
+    outline-offset: 0.2rem;
+    outline: 1px solid var(--color-warning-500);
+  }
+  &:disabled {
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-300);
+  }
+}

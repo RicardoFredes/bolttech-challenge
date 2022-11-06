@@ -13,7 +13,7 @@ export const userLogin = async ({ email, password }: Partial<UserLogin>) => {
   if (error) return new Error(error);
   const user = await AppDataSource.getRepository(User).findOneBy({ email });
   if (!user) return new Error("Not found e-mail");
-  const isMatch = comparePasswords(password, user.password);
+  const isMatch = comparePasswords(password as string, user.password);
   if (!isMatch) return new Error("Password is wrong!");
   user.token = tokenGenerator(user);
   return user.withoutPassword();

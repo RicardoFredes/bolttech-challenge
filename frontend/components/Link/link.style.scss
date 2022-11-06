@@ -1,0 +1,10 @@
+.link {
+  color: var(--color-accent-500);
+  &:visited {
+    color: var(--color-accent-500);
+  }
+  &:focus {
+    outline-offset: 0.2rem;
+    outline: 1px solid var(--color-warning-500);
+  }
+}

@@ -1,0 +1,24 @@
+.input {
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  &__required {
+    color: var(--color-negative-700);
+  }
+  &__element {
+    background-color: var(--color-neutral-900);
+    border: 1px solid var(--color-neutral-900);
+    outline: none;
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    width: 100%;
+    color: var(--color-neutral-100);
+    font-size: 1rem;
+    outline-offset: 0.2rem;
+    &:focus {
+      outline: 2px solid var(--color-warning-300);
+    }
+  }
+}
