@@ -12,6 +12,7 @@ import {
   Text,
   Title,
 } from "../../components";
+import { useProjects } from "../../hooks/projects.hook";
 import { useToast } from "../../hooks/toast.hook";
 import { registerUser, RegisterUserDTO } from "../../requests/user.request";
 
@@ -19,12 +20,14 @@ export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+  const { loadProjects } = useProjects();
 
   const handleSubmit: OnSubmitValue<RegisterUserDTO> = async (values) => {
     setIsLoading(true);
     try {
       await registerUser(values);
       toast.success("Successful registration", "Redirecting to dashboard");
+      await loadProjects();
       navigate("/");
     } catch (error) {
       toast.error("Error creating account", error);

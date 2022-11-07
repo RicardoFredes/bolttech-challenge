@@ -30,15 +30,18 @@ export const ProjectsContext = createContext({
   addProject: async (_data: CreateProjectDTO) => {},
   editProject: async (_id: string, _title: string) => {},
   removeProject: async (_id: string) => {},
+
+  logout: () => {},
+  loadProjects: async () => {},
 });
 
 export const ProjectsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const toast = useToast();
-  const { isAuth, logout } = useAuth();
+  const auth = useAuth();
 
-  const handleGetProjects = async () => {
+  const loadProjects = async () => {
     setIsLoading(true);
     return ProjectsRequest.get()
       .then(setProjects)
@@ -50,8 +53,13 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (isAuth) handleGetProjects();
-  }, [isAuth]);
+    if (auth.isAuth) loadProjects();
+  }, [auth.isAuth]);
+
+  const logout = () => {
+    setProjects([]);
+    auth.logout();
+  };
 
   const addTask = async (data: CreateTaskDTO) =>
     TasksRequest.add(data)
@@ -150,6 +158,8 @@ export const ProjectsProvider = ({ children }) => {
     addProject,
     editProject,
     removeProject,
+    logout,
+    loadProjects,
   };
   return <ProjectsContext.Provider value={value}>{children}</ProjectsContext.Provider>;
 };

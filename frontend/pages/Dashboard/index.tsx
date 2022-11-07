@@ -11,11 +11,13 @@ import {
 } from "../../components";
 import { useAuth } from "../../hooks/auth.hook";
 import { useModal } from "../../hooks/modal.hook";
+import { useProjects } from "../../hooks/projects.hook";
 
 export const Dashboard = () => {
   const modal = useModal();
   const navigate = useNavigate();
-  const { logout, username } = useAuth();
+  const { username } = useAuth();
+  const { logout } = useProjects();
 
   const handleLogout = () => {
     logout();

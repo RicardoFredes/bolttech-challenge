@@ -12,6 +12,8 @@ import {
   Text,
   Title,
 } from "../../components";
+import { useAuth } from "../../hooks/auth.hook";
+import { useProjects } from "../../hooks/projects.hook";
 import { useToast } from "../../hooks/toast.hook";
 import { login, LoginDTO } from "../../requests/user.request";
 
@@ -19,12 +21,17 @@ export const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+  const auth = useAuth();
+
+  const { loadProjects } = useProjects();
 
   const handleSubmit: OnSubmitValue<LoginDTO> = async ({ email, password }) => {
     setIsLoading(true);
 
     try {
       await login({ email, password });
+      auth.login();
+      await loadProjects();
       toast.success("Login successfully", "Redirecting to dashboard");
       navigate("/");
     } catch (error) {

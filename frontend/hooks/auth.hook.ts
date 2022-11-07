@@ -6,12 +6,16 @@ export const useAuth = () => {
   const [username, setName] = useState("user");
 
   useEffect(() => {
+    login();
+  }, []);
+
+  const login = () => {
     const auth = AuthService.get();
     if (auth) {
       setAuth(true);
       setName(auth.name);
     }
-  }, []);
+  };
 
   const logout = () => {
     setAuth(false);
@@ -22,6 +26,7 @@ export const useAuth = () => {
   return {
     isAuth,
     logout,
+    login,
     username,
   };
 };
