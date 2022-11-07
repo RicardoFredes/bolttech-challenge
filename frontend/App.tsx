@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
+import { Dashboard } from "./pages/Dashboard";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { AuthService } from "./services/auth.service";
@@ -18,7 +18,7 @@ export const App = () => {
           path="/"
           element={
             <PrivateRoute>
-              <Home />
+              <Dashboard />
             </PrivateRoute>
           }
         />

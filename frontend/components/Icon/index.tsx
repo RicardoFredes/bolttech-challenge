@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
-interface IconProps extends React.HTMLAttributes<HTMLElement> {
+export interface IconProps extends React.HTMLAttributes<HTMLElement> {
   icon: string;
 }
 

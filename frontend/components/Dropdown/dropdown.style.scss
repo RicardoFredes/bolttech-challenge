@@ -1,0 +1,30 @@
+.dropdown {
+  position: relative;
+  &__menu-list {
+    box-shadow: var(--shadow-700);
+    z-index: 2;
+    position: absolute;
+    padding: 1rem;
+    min-width: 120px;
+    right: 1rem;
+    top: 2.5rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  &__menu-item {
+    text-align: left;
+    padding: 0.5rem;
+    background-color: transparent;
+    color: unset;
+    border: none;
+    display: block;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 250ms ease;
+    border-radius: 0.5rem;
+    width: 100%;
+    &:hover {
+      color: var(--color-accent-500);
+    }
+  }
+}

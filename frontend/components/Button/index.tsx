@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import { Icon } from "../Icon";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 

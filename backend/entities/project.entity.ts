@@ -1,5 +1,5 @@
 import { Length } from "class-validator";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Task } from "./task.entity";
 import { User } from "./user.entity";
 
@@ -19,7 +19,7 @@ export class Project {
   @Column({ select: false })
   userId: string;
 
-  @OneToMany(() => Task, (task) => task.project)
+  @OneToMany(() => Task, (task) => task.project, { cascade: true })
   @JoinColumn()
   tasks: Task[];
 }

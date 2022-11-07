@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, CreateTask, TasksList, Text } from "..";
+import { Card, Dropdown, TaskForm, TasksList, Text } from "..";
 import { Task } from "../../contexts/projects.contexts";
+import { useProjects } from "../../hooks/projects.hook";
 
 interface ProjectCardProps {
   title: string;
@@ -9,21 +10,27 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ title, projectId, tasks = [] }: ProjectCardProps) => {
+  const { removeProject } = useProjects();
+
   return (
-    <Card>
-      <Card.Header>
+    <Card className="project-card">
+      <Card.Header className="project-card__header">
         <Text>{title}</Text>
+        <Dropdown>
+          <Dropdown.MenuItem>Edit</Dropdown.MenuItem>
+          <Dropdown.MenuItem onClick={() => removeProject(projectId)}>Remove</Dropdown.MenuItem>
+        </Dropdown>
       </Card.Header>
-      {tasks.length === 0 ? (
-        <Text variant="secondary" size="sm">
-          Start by adding some task
-        </Text>
-      ) : (
-        <TasksList tasks={tasks} projectId={projectId} />
-      )}
-      <br />
-      <br />
-      <CreateTask projectId={projectId} />
+      <div className="project-card__tasks">
+        {tasks.length === 0 ? (
+          <Text variant="secondary" size="sm">
+            Start by adding some task
+          </Text>
+        ) : (
+          <TasksList tasks={tasks} projectId={projectId} />
+        )}
+      </div>
+      <TaskForm projectId={projectId} />
     </Card>
   );
 };

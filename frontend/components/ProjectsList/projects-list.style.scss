@@ -1,0 +1,22 @@
+.projects-list {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: auto;
+  padding: 2rem 0;
+  text-align: center;
+  &__container {
+    text-align: left;
+    display: inline-flex;
+    margin: 0 auto;
+    gap: 1rem;
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      width: 1rem;
+    }
+    > * {
+      min-width: 350px;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.project-card {
+  display: flex;
+  flex-direction: column;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  &__tasks {
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+}

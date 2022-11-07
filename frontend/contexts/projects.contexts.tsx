@@ -53,7 +53,12 @@ export const ProjectsProvider = ({ children }) => {
       .then((task: Task) =>
         setProjects((projects) =>
           projects.map((project) => {
-            if (project.id === data.projectId) project.tasks.push(task);
+            if (project.id === data.projectId) {
+              return {
+                ...project,
+                tasks: project.tasks.concat(task),
+              };
+            }
             return project;
           })
         )
@@ -93,7 +98,14 @@ export const ProjectsProvider = ({ children }) => {
       .catch((error) => toast.error("Error adding new project", error));
 
   const editProject = async (id: string, title: string) => {};
-  const removeProject = async (id: string) => {};
+
+  const removeProject = async (projectId: string) => {
+    if (!confirm("Do you want to remove the project?")) return;
+    return ProjectsRequest.remove({ id: projectId })
+      .then(() => setProjects((projects) => projects.filter(({ id }) => id !== projectId)))
+      .then(() => toast.success("Project removed"))
+      .catch((error) => toast.error("Error removing project", error));
+  };
 
   const value = {
     projects,

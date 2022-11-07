@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
-export type OnSubmitValue<T = any> = (values: T) => void;
+export type OnSubmitValue<T = any> = (values: T, event?: React.FormEvent<HTMLFormElement>) => void;
 
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   onSubmitValues?: OnSubmitValue;
@@ -16,7 +16,7 @@ export const Form = ({ className, onSubmit, onSubmitValues, ...props }: FormProp
       const form = event.target as HTMLFormElement;
       const formData = new FormData(form);
       const values = Object.fromEntries(formData) as any;
-      onSubmitValues(values);
+      onSubmitValues(values, event);
     }
   };
   return <form className={cn} onSubmit={handleSubmit} {...props} />;
