@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useState } from "react";
-import { Icon, Text, Title } from "..";
+import { Icon, IconButton, Text, Title } from "..";
 import { Task } from "../../contexts/projects.contexts";
 import { useProjects } from "../../hooks/projects.hook";
 
@@ -40,21 +40,43 @@ interface TaskItemProps extends Task {
 
 const TaskItem = ({ done, id, description, projectId }: TaskItemProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { toggleTaskDone } = useProjects();
+  const { toggleTaskDone, removeTask } = useProjects();
 
-  const handleClick = async () => {
+  const handleToggle = async () => {
     if (isLoading) return;
     setIsLoading(true);
     await toggleTaskDone({ id, projectId, done });
     setIsLoading(false);
   };
 
+  const handleRemove = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    await removeTask(id, projectId);
+    setIsLoading(false);
+  };
+
   const icon = isLoading ? "fa-circle-notch fa-spin" : done ? "fa-check-square" : "fa-square";
   const cn = classNames("task-item", { "task-item--done": done });
   return (
-    <div className={cn} tabIndex={0} onClick={handleClick} title={done ? "uncheck" : "check"}>
-      <Icon icon={icon} />
-      <Text className="task-item__description">{description}</Text>
+    <div className={cn}>
+      <div
+        className="task-item__content flex-grow"
+        tabIndex={0}
+        onClick={handleToggle}
+        title={done ? "uncheck" : "check"}
+      >
+        <Icon className="task-item__icon" icon={icon} />
+        <Text className="task-item__description flex-grow">{description}</Text>
+      </div>
+      {done ? null : (
+        <IconButton
+          onClick={handleRemove}
+          className="task-item__remove"
+          icon="fa-trash"
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 };

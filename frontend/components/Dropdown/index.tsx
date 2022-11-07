@@ -4,11 +4,12 @@ import { Card, IconButton } from "..";
 
 interface DropdownProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface DropdownMenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const Dropdown = ({ children }: DropdownProps) => {
+export const Dropdown = ({ className, children }: DropdownProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -17,8 +18,10 @@ export const Dropdown = ({ children }: DropdownProps) => {
     return () => document.removeEventListener("click", handleClickOut);
   });
 
+  const cn = classNames(className, "dropdown");
+
   return (
-    <div className="dropdown" onClick={(event) => event.stopPropagation()}>
+    <div className={cn} onClick={(event) => event.stopPropagation()}>
       <IconButton icon="fa-ellipsis-v" onClick={() => setOpen(true)} />
       {open ? (
         <Card className="dropdown__menu-list" onClick={() => setOpen(false)}>

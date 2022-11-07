@@ -1,6 +1,6 @@
 .tasks-list {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.4rem;
   &__empty {
     padding-left: 1rem;
   }
@@ -9,16 +9,34 @@
 .task-item {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 0.25rem;
+  justify-content: space-between;
+  gap: 0.4rem;
   margin-left: 1rem;
+  margin-right: -1rem;
   cursor: pointer;
   border-radius: 0.25rem;
-  transition: color ease 250ms;
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: color ease 250ms;
+    &:hover {
+      color: var(--color-accent-500);
+    }
+  }
+  &__remove {
+    opacity: 0;
+    min-width: 3rem;
+    visibility: hidden;
+  }
   &:hover {
-    color: var(--color-accent-500);
+    .task-item__remove {
+      opacity: 1;
+      visibility: visible;
+    }
   }
   &--done {
+    padding: 0.25rem;
     color: var(--color-text-secondary);
     .task-item__description {
       text-decoration: line-through;

@@ -38,6 +38,7 @@ export const ProjectForm = ({ title, buttonLabel, projectId, projectTitle }: Pro
         autoComplete="off"
         required
         minLength={3}
+        maxLength={50}
       />
       <Button type="submit" isLoading={isLoading}>
         {buttonLabel}

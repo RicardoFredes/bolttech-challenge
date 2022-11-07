@@ -16,7 +16,7 @@ export class Task {
   id: string;
 
   @Column()
-  @Length(3, 20)
+  @Length(3)
   description: string;
 
   @CreateDateColumn()

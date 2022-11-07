@@ -66,7 +66,21 @@ export const ProjectsProvider = ({ children }) => {
       .catch((error) => toast.error("Error adding task", error));
 
   const editTask = async (id: string, description: string, projectId: string) => {};
-  const removeTask = async (id: string, projectId: string) => {};
+  const removeTask = async (taskId: string, projectId: string) =>
+    TasksRequest.remove({ id: taskId, projectId })
+      .then(() => {
+        setProjects((projects) =>
+          projects.map((project) => {
+            if (project.id !== projectId) return project;
+            return {
+              ...project,
+              tasks: project.tasks.filter(({ id }) => id !== taskId),
+            };
+          })
+        );
+      })
+      .then(() => toast.success("Task successfully removed"))
+      .catch((error) => toast.error("Error removing task", error));
 
   const toggleTaskDone = async ({ projectId, done, id }: DoneTaskDTO) => {
     const newDone = !done;

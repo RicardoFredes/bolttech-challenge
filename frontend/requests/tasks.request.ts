@@ -11,6 +11,11 @@ export interface DoneTaskDTO {
   done: boolean;
 }
 
+export interface RemoveTaskDTO {
+  id: string;
+  projectId: string;
+}
+
 export interface CreateTaskResponse extends CreateTaskDTO {
   done: boolean;
   createdAt: string;
@@ -37,7 +42,16 @@ export const doneTask = async ({ id, done }: DoneTaskDTO) => {
   }
 };
 
+export const removeTask = async ({ id }: RemoveTaskDTO) => {
+  try {
+    await newModel("/tasks").delete(id);
+  } catch (error) {
+    return Promise.reject(error.response.data.message);
+  }
+};
+
 export const TasksRequest = {
   add: createTask,
   done: doneTask,
+  remove: removeTask,
 };
