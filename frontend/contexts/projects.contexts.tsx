@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { useAuth } from "../hooks/auth.hook";
 import { useToast } from "../hooks/toast.hook";
 import { CreateProjectDTO, ProjectsRequest } from "../requests/projects.request";
 import { CreateTaskDTO, DoneTaskDTO, TasksRequest } from "../requests/tasks.request";
@@ -35,18 +36,22 @@ export const ProjectsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const toast = useToast();
+  const { isAuth, logout } = useAuth();
 
   const handleGetProjects = async () => {
     setIsLoading(true);
     return ProjectsRequest.get()
       .then(setProjects)
-      .catch((error) => toast.error("Error loading projects", error))
+      .catch((error) => {
+        logout();
+        toast.error("Error loading projects", error);
+      })
       .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
-    handleGetProjects();
-  }, []);
+    if (isAuth) handleGetProjects();
+  }, [isAuth]);
 
   const addTask = async (data: CreateTaskDTO) =>
     TasksRequest.add(data)
@@ -66,8 +71,10 @@ export const ProjectsProvider = ({ children }) => {
       .catch((error) => toast.error("Error adding task", error));
 
   const editTask = async (id: string, description: string, projectId: string) => {};
-  const removeTask = async (taskId: string, projectId: string) =>
-    TasksRequest.remove({ id: taskId, projectId })
+
+  const removeTask = async (taskId: string, projectId: string) => {
+    if (!confirm("Do you want to remove the task?")) return;
+    return TasksRequest.remove({ id: taskId, projectId })
       .then(() => {
         setProjects((projects) =>
           projects.map((project) => {
@@ -81,6 +88,7 @@ export const ProjectsProvider = ({ children }) => {
       })
       .then(() => toast.success("Task successfully removed"))
       .catch((error) => toast.error("Error removing task", error));
+  };
 
   const toggleTaskDone = async ({ projectId, done, id }: DoneTaskDTO) => {
     const newDone = !done;

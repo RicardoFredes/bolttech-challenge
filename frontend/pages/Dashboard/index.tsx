@@ -1,15 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, ProjectForm, ProjectsList, Title } from "../../components";
+import {
+  Button,
+  Container,
+  ProjectForm,
+  ProjectsList,
+  Section,
+  Text,
+  Title,
+} from "../../components";
+import { useAuth } from "../../hooks/auth.hook";
 import { useModal } from "../../hooks/modal.hook";
-import { AuthService } from "../../services/auth.service";
 
 export const Dashboard = () => {
   const modal = useModal();
   const navigate = useNavigate();
+  const { logout, username } = useAuth();
 
   const handleLogout = () => {
-    AuthService.del();
+    logout();
     navigate("/login");
   };
 
@@ -24,6 +33,9 @@ export const Dashboard = () => {
           </Button>
         </div>
       </nav>
+      <Section>
+        <Text>Olá, {username}</Text>
+      </Section>
       <section className="dashboard__project-board">
         <Container size="lg">
           <Title className="text-center" size="md">
