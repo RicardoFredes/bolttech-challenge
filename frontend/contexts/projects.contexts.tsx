@@ -120,6 +120,7 @@ export const ProjectsProvider = ({ children }) => {
     ProjectsRequest.add({ title })
       .then((project: Project) =>
         setProjects((projects) => {
+          project.tasks = [];
           projects.push(project);
           return projects;
         })
