@@ -97,7 +97,18 @@ export const ProjectsProvider = ({ children }) => {
       .then(() => toast.success("New project created successfully"))
       .catch((error) => toast.error("Error adding new project", error));
 
-  const editProject = async (id: string, title: string) => {};
+  const editProject = async (projectId: string, title: string) =>
+    ProjectsRequest.update({ id: projectId, title })
+      .then(() =>
+        setProjects((projects) =>
+          projects.map((project) => {
+            if (project.id !== projectId) return project;
+            return { ...project, title };
+          })
+        )
+      )
+      .then(() => toast.success("Project changed"))
+      .catch((error) => toast.error("Error editing project", error));
 
   const removeProject = async (projectId: string) => {
     if (!confirm("Do you want to remove the project?")) return;

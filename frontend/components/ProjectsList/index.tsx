@@ -14,7 +14,7 @@ export const ProjectsList = () => {
           <br />
           <br />
           <Card>
-            <ProjectForm />
+            <ProjectForm.Add />
           </Card>
         </Container>
       ) : null}

@@ -9,7 +9,7 @@ export class Project {
   id: string;
 
   @Column()
-  @Length(3, 20)
+  @Length(3, 50)
   title: string;
 
   @ManyToOne(() => User, (user) => user.projects)

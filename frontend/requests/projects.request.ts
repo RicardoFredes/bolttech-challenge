@@ -9,6 +9,11 @@ export interface RemoveProjectDto {
   id: string;
 }
 
+export interface UpdateProjectDto {
+  id: string;
+  title: string;
+}
+
 export interface CreateProjectResponse {
   id: string;
   title: string;
@@ -43,8 +48,17 @@ const removeProject = async ({ id }: RemoveProjectDto) => {
   }
 };
 
+const updateProject = async ({ id, title }: UpdateProjectDto) => {
+  try {
+    return await newModel("/projects").put(id, { title });
+  } catch (error) {
+    return Promise.reject(error.response.data.message);
+  }
+};
+
 export const ProjectsRequest = {
   get: getProjects,
   add: createProject,
   remove: removeProject,
+  update: updateProject,
 };
